@@ -1,0 +1,15 @@
+<form method='post' action='/posts/<%= post.id %>/comments'>
+
+    <h2>
+        Nuevo Comentario:
+
+        <input type="image" class="icon" src="/icons/save.png" border="0" alt="Submit"/>
+        <a href="/reload"><img class="icon" src="/icons/cancel.png"></a>
+
+    </h2>
+
+
+    <%- include _form.ejs %>
+
+</form>
+

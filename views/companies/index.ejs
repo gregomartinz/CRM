@@ -1,0 +1,58 @@
+
+
+<h1> 
+    Fábricas:
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <% if (session.user && session.user.isAdmin) { %>
+        <a href="/companies/new"><img class="icon" src="/icons/add.png"></a>
+    <% } %>
+
+</h1>
+
+<table>
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Informes
+        </th>
+
+        <th>
+            Visitas
+        </th>
+
+        <th>
+        </th>
+    </tr>
+
+    <% for (var i in companies) { %> 
+        <% var company = companies[i]; %>      
+
+        <tr>
+            <td>
+                <a href="/companies/<%= company.id %>"> <%= company.name %> </a>
+            </td>
+
+            <td>
+                <a href="/companies/<%= company.id %>/statistics"><img class="icon" src="/icons/reports.png"></a>
+            </td>
+
+            <td>
+                <a href="/companies/<%= company.id %>/visits/new"><img class="icon" src="/icons/adds.png"></a>
+            </td>
+
+            <td>
+                <% if (session.user && session.user.isAdmin) { %>
+                    <a href="/companies/<%= company.id %>?_method=DELETE"
+                       onClick="return confirm('¿Seguro que quiere borrar la fábrica: <%= company.name %>?');"><img class="icon" src="/icons/basura.png"></a>
+                <% } %>
+            </td>
+
+        </tr>
+    <% } %>
+
+</table>
+

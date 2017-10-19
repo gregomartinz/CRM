@@ -1,0 +1,58 @@
+
+<h1>
+    Usuario
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <% if (session.user) { %>
+
+        <% if (session.user.isAdmin || session.user.id === user.id) { %>
+          <a href="/users/<%= user.id %>/edit"> 
+            <img class="icon" src="/icons/edit.png">
+          </a>
+        <% } %>
+
+    <% } %>
+
+</h1>
+
+
+<div class="right">
+    <% if (user.Photo) { %>
+    <img src="<%= user.Photo.url %>" width="200px" />
+    <% } else { %>
+    <img src="/images/face.png" width="200px" />
+    <% } %>
+</div>
+
+
+<ul>
+    <li>
+        <b>Login:</b>
+        <%= user.login %>
+    </li>
+
+    <li>
+        <b>Nombre</b>: <%= user.fullname %>
+    </li>
+
+    <li>
+        <b>Es Administrador:</b>
+        <%= user.isAdmin ? "Si" : "No" %>
+    </li>
+
+    <li>
+        <b>Es Vendedor:</b>
+        <%= user.isSalesman ? "Si" : "No" %>
+    </li>
+
+    <% if (session.user.isAdmin || session.user.id === user.id) { %>
+    <li>
+        <b>Token:</b>
+        <%= user.token %>
+    </li>
+
+    Generar nuevo token: <a href="/users/<%= user.id %>/token?_method=PUT"><img class="icon"
+                                                                                src="/icons/reload.png"></a>
+    <% } %>
+</ul>

@@ -1,0 +1,35 @@
+
+<h1> 
+    Fábrica: 
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <% if (session.user && session.user.isAdmin) { %>
+        <a href="/companies/<%= company.id %>/edit"><img class="icon" src="/icons/edit.png"></a>
+    <% } %>
+</h1>
+
+<ul>
+    <li>
+        <b>Nombre</b>: <%= company.name %>
+    </li>
+</ul>
+
+
+<h2>
+Clientes:
+</h2>
+
+<ul>
+    <% for (var i in allCustomers) { %>
+    <% var customer = allCustomers[i]; %>
+
+    <% if (!customer.archived) { %>
+
+    <li>
+        <%= customer.code %> - <%= customer.name %>
+    </li>
+    <% } %>
+
+    <% } %>
+</ul>

@@ -1,0 +1,132 @@
+<ul>
+    <li class="archived">
+        <label><b>Archivar</b>:</label>
+
+        Si:  <input type="radio" name="archived" value="si"   <%= !!customer.archived   ? "checked" : "" %> >  -
+        No:  <input type="radio" name="archived" value="no"   <%= !customer.archived    ? "checked" : "" %> >
+
+         <br /> <br />
+    </li>
+
+    <li>
+        <label>Código:</label>
+        <input type="text" name="code" value="<%= customer.code %>" placeholder="Código" autocomplete="off" autofocus/>
+    </li>
+
+    <li>
+        <label>Nombre:</label>
+        <input type="text" name="name" value="<%= customer.name %>" placeholder="Nombre" size="60" autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>CIF:</label>
+        <input type="text" name="cif" value="<%= customer.cif %>" placeholder="CIF" autocomplete="off"/>
+    </li>
+</ul>
+<ul>
+    <li>
+        <label>Dirección 1:</label>
+        <input type="text" name="address1" value="<%= customer.address1 %>" placeholder="Dirección" size="60"
+               autocomplete="off"/>
+    </li>
+
+    <li>
+        <label>Dirección 2:</label>
+        <input type="text" name="address2" value="<%= customer.address2 %>" placeholder="Dirección" size="60"
+               autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>Código Postal:</label>
+        <input type="text" name="postalCode" value="<%= customer.postalCode %>" placeholder="Código Postal"
+               autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>Ciudad:</label>
+        <input type="text" name="city" value="<%= customer.city %>" placeholder="Ciudad" autocomplete="off"/>
+    </li>
+</ul>
+<ul>
+
+
+    <li>
+        <label>Teléfono 1:</label>
+        <input type="text" name="phone1" value="<%= customer.phone1 %>" placeholder="Teléfono" autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>Teléfono 2:</label>
+        <input type="text" name="phone2" value="<%= customer.phone2 %>" placeholder="Teléfono" autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>FAX:</label>
+        <input type="text" name="phone3" value="<%= customer.phone3 %>" placeholder="Teléfono" autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>Otro Teléfono:</label>
+        <input type="text" name="phone4" value="<%= customer.phone4 %>" placeholder="Teléfono" autocomplete="off"/>
+    </li>
+</ul>
+<ul>
+
+    <li>
+        <label>Correo 1:</label>
+        <input type="text" name="email1" value="<%= customer.email1 %>" placeholder="email" size="50"
+               autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>Correo 2:</label>
+        <input type="text" name="email2" value="<%= customer.email2 %>" placeholder="email" size="50"
+               autocomplete="off"/>
+    </li>
+
+
+    <li>
+        <label>Web:</label>
+        <input type="text" name="web" value="<%= customer.web %>" placeholder="URL" size="60" autocomplete="off"/>
+    </li>
+
+    <li>
+        <label>Observaciones:</label>
+        <br />
+        <textarea type="text" name="notes" placeholder="Observaciones" rows="5" cols="80"><%= customer.notes %></textarea>
+    </li>
+</ul>
+
+<h2>
+    Fábricas:
+</h2>
+
+<ul>
+    <% for (var i in companiesInfo) { %>
+    <% var company = companiesInfo[i]; %>
+
+    <li>
+        <input type="checkbox" name="mainCompanyIds[]" value="<%= company.id %>" id="company<%= company.id %>">
+        <%= company.name %>
+    </li>
+
+    <% } %>
+</ul>
+
+<!-- Seleccionar (check) las fabricas del cliente -->
+
+<script>
+    <% for (var i in mainCompanyIds) { %>
+    <% var companyId = mainCompanyIds[i]; %>
+
+    document.getElementById("company<%= companyId %>").checked = true;
+
+    <% } %>
+</script>

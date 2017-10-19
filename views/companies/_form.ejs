@@ -1,0 +1,36 @@
+
+	<label>Nombre:</label>
+	<input type="text" name="name" value="<%= company.name %>" placeholder="Nombre"  autocomplete="off" autofocus /> <p>
+
+	<h2>
+	Clientes:
+	</h2>
+
+	<ul>
+        <% for (var i in allCustomers) { %>
+        <% var customer = allCustomers[i]; %>
+
+		<li>
+			<input type="checkbox" name="customerIds[]" value="<%= customer.id %>" id="customer<%= customer.id %>" >
+            <%=  customer.code %> - <%=  customer.name %>
+		</li>
+
+        <% } %>
+	</ul>
+
+	<!-- Seleccionar (check) los clientes de la fabrica -->
+
+	<script>
+        <% for (var i in customerIds) { %>
+        <% var customerId = customerIds[i]; %>
+
+        var element = document.getElementById("customer<%= customerId %>");
+        if (element) {
+            element.checked = true;
+        }
+
+        <% } %>
+	</script>
+
+
+

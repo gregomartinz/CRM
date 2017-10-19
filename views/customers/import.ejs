@@ -1,0 +1,43 @@
+
+
+<h1>
+    Importar Clientes desde CSV
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+</h1>
+
+
+<ul>
+    <li> El fichero CSV debe tener 14 campos separados por punto y coma.</li>
+    <ul>
+        <li> Campo 1:  Código de cliente.</li>
+        <li> Campo 2:  Nombre del cliente.</li>
+        <li> Campo 3:  CIF del cliente.</li>
+        <li> Campo 4:  Dirección 1 del cliente.</li>
+        <li> Campo 5:  Dirección 2 del cliente.</li>
+        <li> Campo 6:  Código postal del cliente.</li>
+        <li> Campo 7:  Ciudad del cliente.</li>
+        <li> Campo 8:  Teléfono 1 del cliente.</li>
+        <li> Campo 9:  Teléfono 2 del cliente.</li>
+        <li> Campo 10: Teléfono 3 del cliente.</li>
+        <li> Campo 11: Tee.</li>
+        <li> Campo 12: Email 1 del cliente.</li>
+        <li> Campo 13: Email 2 del cliente.</li>
+        <li> Campo 14: Página WEB del cliente.</li>
+    </ul>
+    <li> La primera línea del fichero CSV se ignora.</li>
+</ul>
+
+
+<form action="/customers/import" method="post" enctype="multipart/form-data">
+    <input type="file" name="csv"/>
+
+    <br />
+    <br />
+
+    <input type="image" class="icon" src="/icons/ok.png" border="0" alt="Submit"
+           onClick="this.disabled = true; this.form.submit();" />
+
+    <a href="/goback"><img class="icon" src="/icons/cancel.png"></a>
+</form>
+

@@ -1,0 +1,85 @@
+
+
+<script src="/javascripts/misc_form.js"></script>
+
+<form method="get" action="<%= url %>" id="filterForm" class="right filters">
+
+    <input type="hidden" name="forceCustomerId" value=<%= locals.forceCustomerId %>>
+
+    <div class="vcenter">
+        Filtros:
+        <input type="image" class="icon" src="/icons/find.png" border="0" alt="Submit"/>
+
+        <input type="image" class="icon right" src="/icons/cancel.png" border="0"
+               onClick="cleanupForm('filterForm')"/>
+
+    </div>
+
+    <label>Planificado desde:</label>
+    <input type="text"
+           id="searchdateafter"
+           name="searchdateafter"
+           value="<%= locals.searchdateafter || '' %>"
+           placeholder="dd-mm-aaaa"
+           pattern="\d\d-\d\d-\d\d\d\d"
+           size="11"
+           autocomplete="off"/>
+
+    <label>Hasta:</label>
+    <input type="text"
+           id="searchdatebefore"
+           name="searchdatebefore"
+           value="<%= locals.searchdatebefore || '' %>"
+           placeholder="dd-mm-aaaa"
+           pattern="\d\d-\d\d-\d\d\d\d"
+           size="11"
+           autocomplete="off"/>
+
+    <% var today = moment().format("DD-MM-YYYY"); %>
+    <input type="image" class="icon right" src="/icons/today.png" border="0"
+           onClick="setDate('<%= today %>', 'searchdateafter', 'searchdatebefore'); return false;"/>
+
+    <br/>
+
+    <% if (!locals.customer) { %>
+    <label>Cliente:</label>
+    <input type="text" name="searchcustomer" value="<%= locals.searchcustomer || '' %>" placeholder="Cliente a buscar"
+           size="40" autocomplete="off"/>
+
+    <br/>
+
+    <label>Clientes de la fábrica:</label>
+    <select name="searchCompanyId">
+
+        <option value="" <%= !locals.searchCompanyId ? "selected" : "" %> >
+            Todas
+        </option>
+
+        <% for (var i in companiesInfo) { %>
+        <% var companyInfo = companiesInfo[i]; %>
+        <option value="<%= companyInfo.id %>" <%= companyInfo.id == locals.searchCompanyId ? "selected" : "" %> >
+            <%= companyInfo.name %>
+        </option>
+        <% } %>
+    </select>
+
+    <br/>
+
+    <% } %>
+
+    <% if (!locals.salesman) { %>
+    <label>Vendedor:</label>
+    <input type="text" name="searchsalesman" value="<%= locals.searchsalesman || '' %>" placeholder="Vendedor a buscar"
+           size="40" autocomplete="off"/>
+
+    <br/>
+    <% } %>
+
+    <div class="vcenter">
+        <label>Favoritas:</label>
+        <input type="checkbox" name="searchfavourites" value="1" <%= locals.searchfavourites ? 'checked' : '' %> >
+        <img class="star" src="/icons/star_yellow.png" \>
+    </div>
+
+</form>
+

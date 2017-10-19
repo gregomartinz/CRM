@@ -1,0 +1,81 @@
+
+
+<% var salesmanName = visit.Salesman ? visit.Salesman.fullname : "SIN VENDEDOR"; %>
+<% var salesmanPhotoUrl = visit.Salesman && visit.Salesman.Photo && visit.Salesman.Photo.url || ""; %>
+<% var salesmanId = visit.Salesman && visit.Salesman.id || 0; %>
+
+<% var customerCode = visit.Customer ? visit.Customer.code : "" %>
+<% var customerName = visit.Customer ? visit.Customer.name : "" %>
+<% var customerId   = visit.Customer && visit.Customer.id || 0; %>
+
+
+<div class="right">
+    <% if (salesmanPhotoUrl) { %>
+	<img src="<%= salesmanPhotoUrl %>" width="100px" />
+    <% } else { %>
+	<img src="/images/face.png" width="100px" />
+    <% } %>
+</div>
+
+<div class="right">
+    <%- include ../favourites/_stars.ejs %>
+</div>
+
+
+<h1> 
+    Visita: 
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <% if (session.user && session.user.isAdmin || salesmanId === session.user.id) { %>
+	<a href="/visits/<%= visit.id %>/edit"><img class="icon" src="/icons/edit.png"></a>
+ 	<% } %>
+
+	<% if (session.user && session.user.isAdmin) { %>
+		<a href="/visits/<%= visit.id %>?_method=DELETE"
+		   onClick="return confirm('¿Seguro que desea borrar la visita de <%= salesmanName %> a <%= customerCode %>?');"><img class="icon" src="/icons/basura.png"></a>
+    <% } %>
+
+</h1>
+
+
+<ul>
+	<li>
+		<b>Cliente</b>:
+
+        <% if (customerCode) { %>
+			<a href="/customers/<%= customerId %>"> <%= customerCode %> <%= customerName %> </a>
+        <% } else { %>
+        	<% customerCode = "SIN CLIENTE"; %>
+			<span class='toberepared'><%= customerCode %></span>
+        <% } %>
+	</li>
+	<li>
+		<b>Vendedor</b>: <%= salesmanName %>
+	</li>
+	<li>
+		<b>Fecha planificación</b>: <%= moment(visit.plannedFor).format("DD-MM-YYYY") %>
+	</li>
+	<li>
+		<b>Fecha realización</b>:
+
+        <% if (!!visit.fulfilledAt) { %>
+        <%= moment(visit.fulfilledAt).format("DD-MM-YYYY") %>
+        <% } else { %>
+		<span class='tobedone'><em>PENDIENTE</em></span>
+        <% } %>
+	</li>
+	<li>
+		<b>Observaciones</b>:  <%- escapeText(visit.notes) %>
+	</li>
+
+</ul>
+
+
+<%  var targets = visit.Targets %>
+
+<% locals.readwrite = session.user && session.user.isAdmin || salesmanId === session.user.id; %>
+
+<hr />
+	<%- include ../targets/index.ejs %>
+<hr />

@@ -1,0 +1,16 @@
+
+
+<h2> 
+    Objetivos: 
+
+    <% if (locals.readwrite) { %>
+        <a href="/visits/<%= visit.id %>/targets/new">
+            <img class="icon" src="/icons/add.png">
+        </a>
+    <% } %>
+
+</h2>
+
+<%- include _index.ejs %>
+
+

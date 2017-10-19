@@ -1,0 +1,85 @@
+
+<script src="/javascripts/misc_form.js"></script>
+
+<form method="get" action="<%= url %>" id="filterForm" class="right filters">
+
+    <div class="vcenter">
+        Filtros:
+        <input type="image" class="icon" src="/icons/find.png" border="0" alt="Submit" />
+
+        <input type="image" class="icon right" src="/icons/cancel.png" border="0"
+               onClick="cleanupForm('filterForm')" />
+
+    </div>
+
+    <label>Contenido:</label>
+    <input type="text" name="searchContent" value="<%= locals.searchContent || '' %>"
+           placeholder="texto a buscar"
+           size="30" autocomplete="off"/>
+
+</form>
+
+<h1>
+    Posts:
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <a href="/posts/new"><img class="icon" src="/icons/add.png"></a>
+</h1>
+
+
+<% if (locals.paginate_control) { %>
+<%- paginate_control %>
+<% } %>
+
+
+<% for (var i in posts) { %>
+<% var post = posts[i]; %>
+<% var authorId = post.Author && post.Author.id || 0; %>
+<% var authorLogin = post.Author && post.Author.login || ""; %>
+<% var authorFullName = post.Author && post.Author.fullname || ""; %>
+<% var authorPhotoUrl = post.Author && post.Author.Photo && post.Author.Photo.url || ""; %>
+
+<article class="post">
+
+    <div class="right">
+        <small>
+            <%= post.updatedAt.toLocaleDateString() %>
+        </small>
+    </div>
+
+    <div class="vcenter right clear">
+
+        <% if (authorId) { %>
+        <% if (session.user.isAdmin) { %>
+        <a href="/users/<%= authorId %>"> <%= authorFullName %> </a>
+        <% } else { %>
+        <%= authorFullName %>
+        <% } %>
+        <% } else { %>
+        <span class='toberepared'><em>sin autor</em></span>
+        <% } %>
+
+        <% if (authorPhotoUrl) { %>
+        <img src="<%= authorPhotoUrl %>" width="30px"/>
+        <% } else { %>
+        <img src="/images/face.png" width="30px"/>
+        <% } %>
+    </div>
+
+
+
+    <header class="post">
+        <h3 class="post">
+            <a href='/posts/<%= post.id %>'> <%= post.title %> </a>
+        </h3>
+    </header>
+
+    <p class="small">
+        <%= post.body.slice(0, 300) %> ...
+    </p>
+
+</article>
+
+<% } %>
+

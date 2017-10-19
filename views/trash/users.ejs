@@ -1,0 +1,84 @@
+<h1>
+    Usuarios Eliminados:
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+</h1>
+
+<% if (locals.paginate_control) { %>
+<%- paginate_control %>
+<% } %>
+
+<table>
+
+    <tr>
+        <th>
+            Borrado
+        </th>
+        <th>
+            Login
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Administrador
+        </th>
+        <th>
+            Vendedor
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    <% for (var i in users) { %>
+    <% var user = users[i]; %>
+
+    <tr>
+        <td>
+            <%= moment(user.deletedAt).format("DD-MM-YYYY") %>
+        </td>
+
+        <td>
+            <%= user.login %>
+        </td>
+
+        <td>
+            <div class="vcenter">
+
+                <% if (user.Photo) { %>
+                <img src="<%= user.Photo.url %>" width="30px"/>
+                <% } else { %>
+                <img src="/images/face.png" width="30px"/>
+                <% } %>
+
+                <%= user.fullname %>
+            </div>
+        </td>
+
+        <td>
+            <%= user.isAdmin ? "Si" : "" %>
+        </td>
+
+        <td>
+            <%= user.isSalesman ? "Si" : "" %>
+        </td>
+
+        <td>
+            <% if (session.user && session.user.isAdmin) { %>
+            <a href="/trash/users/<%= user.id %>?_method=POST"><img class="icon" src="/icons/restore.png"></a>
+            <% } %>
+
+
+            <% if (session.user && session.user.isAdmin) { %>
+            <a href="/trash/users/<%= user.id %>?_method=DELETE"
+               onClick="return confirm('¿Seguro que quiere borrar DEFINITIVAMENTE el usuario: <%= user.login %>?');"><img class="icon" src="/icons/kill.png"></a>
+            <% } %>
+        </td>
+    </tr>
+
+    <% } %>
+</table>
+
+
+

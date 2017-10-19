@@ -1,0 +1,67 @@
+<h2>
+    Comentarios:
+
+    <a href="/posts/<%= post.id %>/comments/new"><img class="icon" src="/icons/add.png"></a>
+</h2>
+
+<% for (var i in comments) { %>
+<% var comment = comments[i]; %>
+
+<% var authorId = comment.Author && comment.Author.id || 0; %>
+<% var authorLogin = comment.Author && comment.Author.login || ""; %>
+<% var authorFullName = comment.Author && comment.Author.fullname || ""; %>
+<% var authorPhotoUrl = comment.Author && comment.Author.Photo && comment.Author.Photo.url || ""; %>
+
+
+<article class="comment">
+
+    <div class="right">
+        <small>
+            <%= post.updatedAt.toLocaleDateString() %>
+        </small>
+    </div>
+
+    <div class="vcenter right clear">
+
+            <% if (authorId) { %>
+            <% if (session.user.isAdmin) { %>
+            <a href="/users/<%= authorId %>"> <%= authorFullName %> </a>
+            <% } else { %>
+            <%= authorFullName %>
+            <% } %>
+            <% } else { %>
+            <span class='toberepared'><em>sin autor</em></span>
+            <% } %>
+
+            <% if (authorPhotoUrl) { %>
+            <img src="<%= authorPhotoUrl %>" width="30px"/>
+            <% } else { %>
+            <img src="/images/face.png" width="30px"/>
+            <% } %>
+        </div>
+
+
+
+    <% if (session.user && (session.user.id == comment.AuthorId || session.user.isAdmin) ) { %>
+
+    <div>
+        <a href="/posts/<%= post.id %>/comments/<%= comment.id %>/edit"><img class="icon" src="/icons/edit.png"></a>
+
+        <a href="/posts/<%= post.id %>/comments/<%= comment.id %>?_method=DELETE"
+           onClick="return confirm('¿Seguro que quiere borrar el comentario?');"><img class="icon" src="/icons/basura.png"></a>
+
+    </div>
+    <% } %>
+
+
+    <p>
+        <%- escapeText(comment.body) %>
+    </p>
+
+
+
+</article>
+<%  } %>
+
+
+

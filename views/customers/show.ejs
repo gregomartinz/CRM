@@ -1,0 +1,92 @@
+
+<h1> 
+    Cliente: 
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <% if (session.user && session.user.isAdmin) { %>
+		<a href="/customers/<%= customer.id %>/edit"><img class="icon" src="/icons/edit.png"></a>
+    <% } %>
+</h1>
+
+<ul>
+    <% if (!!customer.archived) { %>
+	<li  class="archived">
+		<big>
+			<span>Archivado</span>
+		</big>
+	</li>
+    <% } %>
+
+	<li>
+		<b>Código</b>: <%= customer.code %>
+	</li>
+	<li>
+		<b>Nombre</b>: <%= customer.name %>
+	</li>
+	<li>
+		<b>CIF</b>: <%= customer.cif %>
+	</li>
+	<li>
+		<b>Dirección</b>: <%= customer.address1 %> - <%= customer.address2 %>  <%= customer.postalCode %> - <%= customer.city %>
+	</li>
+
+	<li>
+		<b>Teléfono 1</b>: <%= customer.phone1 %>
+	</li>
+	<li>
+		<b>Teléfono 2</b>:  <%= customer.phone2 %>
+	</li>
+	<li>
+		<b>FAX</b>: <%= customer.phone3 %>
+	</li>
+	<li>
+		<b>Otro Teléfono</b>: <%= customer.phone4 %>
+	</li>
+
+
+	<li>
+		<b>Correo 1</b>: <%= customer.email1 %>
+	</li>
+	<li>
+		<b>Correo 2</b>: <%= customer.email2 %>
+	</li>
+
+	<li>
+		<b>Web</b>: <%= customer.web %>
+	</li>
+
+	<li>
+		<b>Observaciones</b>:  <%- escapeText(customer.notes) %>
+	</li>
+</ul>
+
+
+<h2>
+Fábricas:
+</h2>
+
+<ul>
+    <% for (var i in mainCompanies) { %>
+    	<% var company = mainCompanies[i]; %>
+
+		<li> <%=  company.name %> </li>
+
+	<% } %>
+</ul>
+
+
+<h2>
+Visitas:
+</h2>
+
+<ul>
+    <% if (!customer.archived) { %>
+	<li> <a href="/visits/new?customerId=<%= customer.id %>"><img class="icon" src="/icons/add.png"> Crear una visita nueva a este cliente</a> </li>
+    <% } %>
+
+	<li> <a href="/customers/<%= customer.id %>/visits"><img class="icon" src="/icons/ver.png"> Ver todas las visitas a este cliente</a> </li>
+	<li> <a href="/salesmen/<%= session.user.id %>/customers/<%= customer.id %>/visits"><img class="icon" src="/icons/ver.png"> Ver mis visitas a este cliente</a> </li>
+
+</ul>
+

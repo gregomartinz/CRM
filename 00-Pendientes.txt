@@ -1,0 +1,53 @@
+
+
+Pensar cuales son los campos de una visita o de un objetivo que puede editar un vendedor o un administrador:
+   - ¿Solo un administrador puede cambiar el vendedor de una visita existente? Ahora puede cualquiera.
+   - ¿Solo un administrador puede cambiar el cliente de una visita existente? Ahora puede cualquiera.
+   - Cualquiera puede editar las observaciones de las visitas y objetivos.
+     Idea: Un administrador puede editar las observaciones de las vistas y los targets, y un no-administrador solo puede añadir texto al final de la observacion.
+   - Al editar un target que no pueda cambiarse la fabrica ni el tipo de objetivo. ¿ok?
+   - Un administrador puede crear visitas para cualquier vendedor, pero un usuario No administrador y que sea vendedor solo puede crearse visitas para el mismo (o para todos).
+   - Los administradores pueden editar cualquier visita, y los vendedores solo pueden editar las suyas.
+   - ¿Puede un vendedor borrar un objetivo en una visita?
+       o Que un vendedor marque una visita como borrada, pero que no se borre en realidad hasta que lo haga el administrador.
+
+Pensar en esto:
+   - Seria interesante que las visitas tuvieran un campo AuthorId que indicara quien fue el usuario que creo la visita. Pero si se edita, ¿que pasa con AuthorId?
+
+Poner en produccion: adaptar req.session
+
+Otro estado de los objetivos de una visita: Cancelado.
+    - Esto me fastidia porque tengo un booleano (null, true, false)
+
+Poder ordenar los listados (index.ejs) por varios criterios.
+
+Que pueda editarse el login de un user.
+
+Gestion de documentos (attachments) con gestion por etiquetas.
+
+Crear una base de datos para hacer pruebas de sobrecarga.
+    - Analizar la complejidad de los informes de eficiencia.
+
+Listar visitas pendientes, o con tareas pendientes.
+
+Listar historial de visitas de una fabrica (de todos los clientes).
+
+Geolocalizacion.
+
+Unir dos visitas.
+
+Bootstrap
+
+Poder editar varias visitas de forma rapida usando AJAX (o algo similar).
+
+Evitar que queden huerfanos. Por ejemplo no dejar que se pueda borrar un cliente si existen visitas de él.
+
+Control de huerfanos al sacar cosas de la papelera. Ejemplo: Que pasa si restauro una visita y su vendedor ha sido borrado y no ha sido restaurado.
+   - Adjuntos de los posts.
+   - Comentarios de los posts.
+
+Boton para cerrar una visita y que ya no pueda cambiarse.
+
+Favoritos en los posts.
+
+El codigo para subir ficheros a cloudinary esta repetido en posts y users. Hacer limpieza, eliminar repetidos, usar la version v2 de uploader. ...

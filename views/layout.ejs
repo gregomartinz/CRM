@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CRM</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <header class="vcenter">
+        <div class="login right">
+            <% if (!session.user) { %>
+                <a href="/session">Entrar</a>
+            <% } else { %>
+                <a href="/users/<%= session.user.id %>"><span id="loginname"><%= session.user.login %></span></a>
+                <small>(<%= session.user.fullname %>)</small>
+                <a href="/session?_method=DELETE">Salir</a>
+            <% } %>
+        </div>
+        <h1>
+            <a href="/"> <img src="<%= process.env.CRM_LOGO_URL || '/images/logo.png' %>" height="40px" class="left" /> </a>
+            <%= process.env.CRM_TITLE || "CRM" %>
+
+        </h1>
+    </header>
+
+    <nav>
+        .
+        <% if (session.user) { %>
+
+            <% if (session.user.isSalesman) { %>
+                <a href="/salesmen/<%= session.user.id %>/visits">Mis visitas</a>
+            <% } %>
+
+            <a href="/customers">Clientes</a>
+
+            <a href="/visits">Visitas</a>
+
+            <% if (session.user.isAdmin || true) { %>
+                <a href="/companies">Fábricas</a>
+            <% } %>
+
+            <% if (session.user.isAdmin) { %>
+                <a href="/targettypes">Objetivos</a>
+            <% } %>
+
+            <a href="/reports">Informes</a>
+
+            <% if (session.user.isAdmin) { %>
+                <a href="/salesmen">Vendedores</a>
+                <a href="/admins">Admininstradores</a>
+                <a href="/users">Usuarios</a>
+            <% } %>
+
+            <a href="/posts">Posts</a>
+
+            <% if (session.user.isAdmin) { %>
+                <a href="/trash">Papelera</a>
+            <% } %>
+        <% } %>
+
+
+
+    </nav>
+
+    <section>
+            <% if (messages.info) { %>
+               <article id='flashinfo'>
+                 <h3>Información de interés:</h3>
+                 <ul>
+                    <% for (var i in messages.info) { %>
+                      <li> <%= messages.info[i] %> </li>
+                    <% } %>
+                 </ul>
+               </article>
+            <% } %>
+
+            <% if (messages.success) { %>
+               <article id='flashsuccess'>
+                 <h3>Tareas completadas con éxito:</h3>
+                 <ul>
+                    <% for (var i in messages.success) { %>
+                       <li> <%= messages.success[i] %> </li>
+                    <% } %>
+                 </ul>
+               </article>
+            <% } %>
+
+            <% if (messages.error) { %>
+               <article id='flasherror'>
+                 <h3>Errores encontrados:</h3>
+                 <ul>
+                    <% for (var i in messages.error) { %>
+                      <li> <%= messages.error[i] %> </li>
+                    <% } %>
+                 </ul>
+               </article>
+            <% } %>
+    </section>
+
+
+  <section>
+    <div> <%- body %> </div>
+  </section>
+
+  <footer class="version">
+        <small>Versión: 13 Octubre 2017</small>
+  </footer>
+
+  </body>
+</html>

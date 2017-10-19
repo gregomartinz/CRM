@@ -1,0 +1,92 @@
+
+<script>
+    function validateForm() {
+
+        var msgs = [];
+
+        var cid = document.getElementById('customerId').value;
+        if (cid === "0") {
+            msgs.push('- Debe seleccionar un cliente.');
+        }
+
+        var sid = document.getElementById('salesmanId').value;
+        if (sid === "0") {
+            msgs.push('- Debe seleccionar un vendedor.');
+        }
+
+        if (msgs.length) {
+            alert("Existen errores:\n" + msgs.join("\n"));
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+
+<ul>
+	<li>
+		<b>Cliente</b>:
+
+
+		<select name="customerId" id="customerId" >
+
+		    <option value="0"  <%= visit.CustomerId === 0 ? "selected" : "" %> > 
+    				Seleccione un cliente  
+    		</option>
+
+			<% for (var i in customers) { %>
+				<% var customer = customers[i]; %>
+			    <option value="<%= customer.id %>"  <%= customer.id === visit.CustomerId ? "selected" : "" %> >
+    				<%= customer.code %> - <%= customer.name %>
+    			</option>
+    		<% } %>
+		</select>
+	</li>
+
+
+
+	<li>
+		<b>Vendedor</b>: 
+		<select name="salesmanId" id="salesmanId" >
+
+		    <option value="0"  <%= visit.SalesmanId === 0 ? "selected" : "" %> > 
+    				Seleccione un vendedor  
+    		</option>
+
+			<% for (var i in salesmen) { %>
+				<% var salesman = salesmen[i]; %>
+    			<option value="<%= salesman.id %>"  <%= salesman.id === visit.SalesmanId ? "selected" : "" %> > 
+    				<%= salesman.fullname %>
+    			</option>
+    		<% } %>
+		</select>
+	</li>
+
+	<li>
+		<label><b>Fecha planificación</b> (dd-mm-aaaa):</label>
+		<input type="text" name="plannedFor" 
+		       value="<%= moment(visit.plannedFor).format("DD-MM-YYYY") %>" 
+		       pattern="\d\d-\d\d-\d\d\d\d"
+		       placeholder="dd-mm-aaaa" 
+		       autocomplete="off" />
+	</li>
+
+	<li>
+
+		<% var fulfillAtValue = !!visit.fulfilledAt ? moment(visit.fulfilledAt).format("DD-MM-YYYY") : ""; %>
+
+		<label><b>Fecha realización</b> (dd-mm-aaaa):</label>
+		<input type="text" name="fulfilledAt" 
+		       value="<%= fulfillAtValue %>" 
+		       pattern="\d\d-\d\d-\d\d\d\d"
+		       placeholder="dd-mm-aaaa" 
+		       autocomplete="off" />
+	</li>
+
+	<li>
+		<label>Observaciones:</label>
+		<br />
+		<textarea type="text" name="notes" placeholder="Observaciones" rows="5" cols="80"><%= visit.notes %></textarea>
+	</li>
+</ul>

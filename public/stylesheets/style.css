@@ -1,0 +1,408 @@
+body {
+    padding: 0px 20px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #e5f5ff;
+
+}
+
+header {
+    text-align: center;
+    font-family: "PT Serif Bold", Georgia, serif, times;
+    font-size: 18px;
+}
+
+header h1 {
+    margin: 0px;
+}
+
+h1 {
+    margin: 10px 0px;
+}
+
+h2 {
+    margin: 5px 25px;
+}
+
+h3 {
+    margin: 5px 25px;
+    font-style: italic;
+}
+
+p {
+    margin: 5px 0px;
+}
+
+small {
+    font-size: x-small;
+}
+
+big {
+    font-size: larger;
+}
+
+a {
+    color: blue;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+.icon {
+    width: 20px;
+    vertical-align: text-bottom;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+:focus {
+    background-color: yellow;
+    color: blue;
+}
+
+input[type=checkbox] + .star {
+    content: url(/icons/star_grey.png);
+    height: 16px;
+    width: 16px;
+}
+
+input[type=checkbox]:checked + .star {
+    content: url(/icons/star_yellow.png);
+    height: 16px;
+    width: 16px;
+}
+
+.targetindex ul {
+    margin: 0px 5px;
+    clear: both;
+}
+
+.notes {
+    font-style: italic;
+    font-size: smaller;
+
+    margin: 2px 5px;
+}
+
+.archived {
+    color: red;
+}
+
+.toberepared {
+    color: red;
+}
+
+.tobedone {
+    color: #ff15d0;
+}
+
+.done {
+    color: #08ab0a;
+}
+
+.failed {
+    color: red;
+}
+
+input[type=text], input[type=password] {
+    background-color: white;
+    height: 15px;
+    transition: ease-in-out, background-color .4s ease-in-out, height .4s ease-in-out;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: yellow;
+    height: 24px;
+}
+
+.filters {
+    border: 1px dotted blue;
+    margin: 0px 0px 10px 0px;
+    padding: 5px;
+    background-color: #f1fdff;
+}
+
+.boxItem {
+    border: 1px dotted blue;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+    background-color: #f1fdff;
+    clear: both;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 10px 0px;
+
+    /*table-layout: fixed;*/
+}
+
+th {
+    height: 20px;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #85b5ff;
+
+}
+
+td {
+    height: 15px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 1px 2px;
+
+}
+
+nav {
+    background-color: blue;
+    padding: 3px 20px;
+    margin: 5px 0px;
+}
+
+nav a {
+    color: white;
+    margin: 5px 5px;
+}
+
+#loginname {
+    color: #ed7e00;
+}
+
+.login {
+}
+
+.version {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font: 8px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.vcenter {
+}
+
+.vcenter img {
+    vertical-align: middle;
+}
+
+.vcenter input {
+    vertical-align: middle;
+}
+
+article.post {
+    border: 2px solid #1648ff;
+    padding: 5px;
+    margin: 6px;
+    background-color: #f5f5ff;
+    border-radius: 5px;
+    clear: both;
+}
+
+header.post {
+    text-align: left;
+    font-family: "PT Serif Bold", Georgia, serif, times;
+    font-size: 18px;
+}
+
+h3.post {
+    margin: 0px;
+    font-style: italic;
+}
+
+div.attachments {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    cccccalign-items: stretch;
+    justify-content: flex-start;
+
+    margin: 5px 30px;
+
+}
+
+div.attachmentItem {
+    flex: 0 200px;
+
+    display: flex;
+    flex-direction: column;
+    cccccalign-items: stretch;
+    justify-content: space-between;
+
+    padding: 5px;
+    margin: 2px;
+    background-color: #dce9ff;
+
+    border: 1px dotted blue;
+    border-radius: 5px;
+}
+
+article.comment {
+    border: 2px solid #5adfff;
+    padding: 5px;
+    margin: 4px 4px 4px 20px;
+    background-color: #f5f5ff;
+    clear: both;
+
+}
+
+header.comment {
+    text-align: left;
+    font-family: "PT Serif Bold", Georgia, serif, times;
+    font-size: 18px;
+}
+
+#flashinfo {
+    xxxwidth: 450px;
+    border: 2px solid blue;
+    padding: 7px;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+#flashinfo h3 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #00c;
+    color: #ffffff;
+}
+
+#flashinfo ul li {
+    margin: 2px 2px 2px 0px;
+    font-size: 12px;
+    list-style: square;
+}
+
+#flashsuccess {
+    xxxwidth: 450px;
+    border: 2px solid green;
+    padding: 7px;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+#flashsuccess h3 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #0c0;
+}
+
+#flashsuccess ul li {
+    margin: 2px 2px 2px 0px;
+    font-size: 12px;
+    list-style: square;
+}
+
+#flasherror {
+    xxxwidth: 450px;
+    border: 2px solid red;
+    padding: 7px;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+#flasherror h3 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+}
+
+#flasherror ul li {
+    margin: 2px 2px 2px 0px;
+    font-size: 12px;
+    list-style: square;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+    dddfloat: right;
+}
+
+.pagination > li {
+    display: inline;
+
+}
+
+.pagination > li > a,
+.pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: blue;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: blue;
+    border-color: #03a9f4;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}

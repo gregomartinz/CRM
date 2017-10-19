@@ -1,0 +1,17 @@
+<form method='post' action='/posts/<%= post.id %>/comments/<%= comment.id %>?_method=PUT'>
+
+
+    <h2>
+        Editar Comentario
+
+        <input type="image" class="icon" src="/icons/save.png" border="0" alt="Submit"/>
+        <a href="/reload"><img class="icon" src="/icons/cancel.png"></a>
+    </h2>
+
+
+    <%- include _form.ejs %>
+
+</form>
+
+
+<A href="/posts/<%= post.id %>"> Cancelar </a>

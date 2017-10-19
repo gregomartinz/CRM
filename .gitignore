@@ -1,0 +1,10 @@
+.DS_Store
+npm-debug.log
+node_modules
+crm.sqlite
+.env
+.idea/workspace.xml
+uploads/*
+config/server.json
+public/clients
+utils

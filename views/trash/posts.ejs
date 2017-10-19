@@ -1,0 +1,42 @@
+<h1>
+    Posts:
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+</h1>
+
+
+<% for (var i in posts) { %>
+
+<% var post = posts[i]; %>
+
+<article class="post">
+    <header class="post">
+
+        <h3 class="post">
+            <a href='/posts/<%= post.id %>'> <%= post.title %> </a>
+        </h3>
+
+        <em> <%= post.Author && post.Author.login || "Sin autor" %> </em>
+
+    </header>
+
+    <p class="small">
+        <%= post.body.slice(0,300) %> ...
+    </p>
+
+    <footer>
+
+        <% if (session.user && session.user.isAdmin) { %>
+        <a href="/trash/posts/<%= post.id %>?_method=POST"><img class="icon" src="/icons/restore.png"></a>
+        <% } %>
+
+
+        <% if (session.user && session.user.isAdmin) { %>
+        <a href="/trash/posts/<%= post.id %>?_method=DELETE"
+           onClick="return confirm('¿Seguro que quiere borrar DEFINITIVAMENTE el post: <%= post.name %>?');"><img class="icon" src="/icons/kill.png"></a>
+        <% } %>
+
+    </footer>
+</article>
+
+<%  } %>

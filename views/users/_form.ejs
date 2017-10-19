@@ -1,0 +1,91 @@
+<script>
+    function confirmPassword() {
+        var pw1 = document.getElementById('user_password').value;
+        var pw2 = document.getElementById('user_confirm_password').value;
+
+        <% if ( !user.id) { %>
+        if (!pw1 || !pw2) {
+            alert('Debe rellenar los campos de Password y Confirmación.');
+            return false;
+        }
+        <% } %>
+
+        if (pw1 === pw2) {
+            return true;
+        } else {
+            alert('Los passwords introducidos no coinciden.');
+            return false;
+        }
+    }
+</script>
+
+
+<ul>
+
+    <li>
+        <% if ( !user.id) { %>
+        <label for="preg" class="rem"><b>Login</b>:</label>
+        <input type="text" id="login" name="login" value="<%= user.login %>" autocomplete="off"/>
+        <% } else { %>
+        <b>Login</b>: <%= user.login %>
+        <% } %>
+    </li>
+
+
+    <li>
+        <b for="photo">Fotografía:</b></label>
+        <input type="file" id="photo" accept="image/*" name="photo"/>
+        <p>
+
+            <% if (!user.isNewRecord) { %>
+            <label>Mantener fotografía actual:</label>
+            <input type="checkbox" name="keepphoto" value="1" checked>
+            <% } %>
+    </li>
+
+
+    <li>
+        <label><b>Nombre y Apellidos:</b></label>
+        <input type="text" name="fullname" value="<%= user.fullname %>" placeholder="Nombre" autocomplete="off"
+               autofocus/>
+    </li>
+
+    <li class="vcenter">
+        <label><b>Administrador</b>:</label>
+        <% if (session.user && session.user.isAdmin) { %>
+            <input type="checkbox" name="isAdmin" value="1" <%= user.isAdmin ? 'checked' : '' %> >
+        <% } else { %>
+        <%= user.isAdmin ? 'Si' : 'No' %>
+        <% } %>
+    </li>
+
+    <li class="vcenter">
+        <label><b>Vendedor</b>:</label>
+        <% if (session.user && session.user.isAdmin) { %>
+        <input type="checkbox" name="isSalesman" value="1" <%= user.isSalesman ? 'checked' : '' %> >
+        <% } else { %>
+        <%= user.isSalesman ? 'Si' : 'No' %>
+        <% } %>
+    </li>
+
+    <li>
+        <% if (!user.id) { %>
+        <b>Password</b>: Introduzca el nuevo password dos veces.
+        <% } else { %>
+        <b>Password</b>: Dejar en blanco para no cambiar el password actual.
+        <% } %>
+
+        <ul>
+            <li>
+                <label for="user_password" class="rem"><b>Nuevo Password</b>:</label>
+                <input type="password" id="user_password" name="password"/>
+            </li>
+
+            <li>
+                <label for="user_confirm_password" class="rem"><b>Confirmar Password</b>:</label>
+                <input type="password" id="user_confirm_password"/>
+            </li>
+        </ul>
+    </li>
+
+</ul>

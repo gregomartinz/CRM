@@ -1,0 +1,18 @@
+
+
+<form method="post" action="/visits/<%= visit.id %>/targets/<%= target.id %>?_method=PUT" >
+
+	<h1>
+		Editar Objetivo
+
+    	<input type="image" class="icon" src="/icons/save.png" border="0" alt="Submit" onclick="return validateForm()" />
+		<a href="/goback"><img class="icon" src="/icons/cancel.png"></a>
+	</h1>
+
+     <% include _form.ejs %>
+
+   	<input type="image" class="icon" src="/icons/save.png" border="0" alt="Submit" onclick="return validateForm()" />
+	<a href="/goback"><img class="icon" src="/icons/cancel.png"></a>
+
+</form>
+

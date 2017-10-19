@@ -1,0 +1,125 @@
+
+<h1>
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+</h1>
+
+<% var authorId = post.Author && post.Author.id || 0; %>
+<% var authorLogin = post.Author && post.Author.login || ""; %>
+<% var authorFullName = post.Author && post.Author.fullname || ""; %>
+<% var authorPhotoUrl = post.Author && post.Author.Photo && post.Author.Photo.url || ""; %>
+
+
+<article class="post">
+
+    <div class="right">
+        <small>
+            <%= post.updatedAt.toLocaleDateString() %>
+        </small>
+    </div>
+
+        <div class="vcenter right clear">
+
+            <% if (authorId) { %>
+            <% if (session.user.isAdmin) { %>
+            <a href="/users/<%= authorId %>"> <%= authorFullName %> </a>
+            <% } else { %>
+            <%= authorFullName %>
+            <% } %>
+            <% } else { %>
+            <span class='toberepared'><em>sin autor</em></span>
+            <% } %>
+
+            <% if (authorPhotoUrl) { %>
+            <img src="<%= authorPhotoUrl %>" width="30px"/>
+            <% } else { %>
+            <img src="/images/face.png" width="30px"/>
+            <% } %>
+        </div>
+
+
+
+
+    <header class="post">
+        <h3 class="post">
+            <%= post.title %>
+
+            <% if (session.user && (session.user.id == post.AuthorId || session.user.isAdmin) ) { %>
+
+            <a href="/posts/<%= post.id %>/edit"><img class="icon" src="/icons/edit.png"></a>
+
+            <a href="/posts/<%= post.id %>?_method=DELETE"
+               onClick="return confirm('¿Seguro que quiere borrar el post: <%= post.title %>?');"><img class="icon"
+                                                                                                       src="/icons/basura.png"></a>
+
+            <% } %>
+        </h3>
+    </header>
+
+    <p class="small">
+        <%- escapeText(post.body) %>
+    </p>
+
+</article>
+
+<!-- -------------------------- -->
+
+<h2>
+    Adjuntos:
+
+    <% if (session.user && session.user.id == post.AuthorId) { %>
+    <a href="/posts/<%= post.id %>/attachments/new"><img class="icon" src="/icons/add.png"></a>
+    <% } %>
+</h2>
+
+<div class="attachments">
+    <% for (var i in post.Attachments) { %>
+    <% var attachment = post.Attachments[i]; %>
+
+    <div class="attachmentItem">
+        <a href='<%= attachment.url %>'
+           type='<%= attachment.mime %>'
+           target='_blank'>
+            <%= attachment.filename %>
+        </a>
+
+        <% if ( attachment.mime === "image/jpeg" ||
+                attachment.mime === "image/gif" ||
+                attachment.mime === "image/jpg" ||
+                attachment.mime === "image/gif" ) { %>
+
+            <%- cloudinary.image(attachment.public_id, {width: 200, secure: true}) %>
+
+        <% } else if ( attachment.mime === "video/mp4" ) {  %>
+
+            <%- cloudinary.video(attachment.public_id, {width: 200, controls: true, secure: true}) %>
+
+        <% } else if ( attachment.mime === "application/pdf" ) {  %>
+
+            <%- cloudinary.image(attachment.public_id, {width: 150, format: "jpg", secure: true}) %>
+
+        <% } else {  %>
+
+            <img src='/icons/doc.png' width="150px"/>
+
+        <% } %>
+
+        <div>
+            <% if (session.user && session.user.id == post.AuthorId) { %>
+            <a href="/posts/<%= post.id %>/attachments/<%= attachment.id %>?_method=DELETE"
+               onClick="return confirm('¿Seguro que quiere borrar el fichero adjunto: <%= attachment.filename %>?');"><img class="icon" src="/icons/basura.png"></a>
+            <% } %>
+
+            (<em><%= attachment.updatedAt.toLocaleDateString() %></em>)
+        </div>
+    </div>
+
+    <% } %>
+</div>
+
+<!-- -------------------------- -->
+
+<% var comments = post.Comments; %>
+<%- include ../comments/index.ejs %>
+
+<!-- -------------------------- -->
+

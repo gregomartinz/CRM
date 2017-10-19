@@ -1,0 +1,51 @@
+<ul>
+    <% for (var i in targets) { %>
+    <% var target = targets[i]; %>
+
+    <% var typeName = target.TargetType ? target.TargetType.name : "" %>
+    <% var companyName = target.Company ? target.Company.name : "" %>
+
+    <li>
+        <% if (companyName) { %>
+        <b><%= companyName %></b>:
+        <% } else { %>
+        <span class="toberepared">SIN FABRICA</span>:
+        <% } %>
+
+        <% if (typeName) { %>
+        <%= typeName %>
+        <% } else { %>
+        <span class="toberepared">SIN TIPO</span>
+        <% } %>
+
+        <small>
+            <% if (target.success === null) { %>
+                <span class="tobedone">[PENDIENTE]</span>
+            <% } else if (target.success) { %>
+                <span class="done">[Cumplido]</span>
+            <% } else { %>
+                <span class="failed">[Fallido]
+            <% } %>
+        </small>
+
+
+        <% if (locals.readwrite) { %>
+        <a href="/visits/<%= visit.id %>/targets/<%= target.id %>/edit"><img class="icon" src="/icons/edit.png"></a>
+
+        <a href="/visit/<%= visit.id %>/targets/<%= target.id %>&_method=DELETE"
+           onClick="return confirm('¿Seguro que quiere borrar el objetivo <%= typeName %>-<%= companyName %>?');">
+            <img class="icon" src="/icons/basura.png">
+        </a>
+        <% } %>
+
+        <br/>
+
+        <% if (target.notes !== "") { %>
+        <div class="notes">
+        <%- escapeText(target.notes) %>
+        </div>
+        <% } %>
+
+    </li>
+    <% } %>
+</ul>

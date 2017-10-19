@@ -1,0 +1,207 @@
+
+body {
+    font-family: "Clear Sans",Arial,Arial,sans-serif,helvetica;
+}
+
+
+small {
+    font-size: x-small;
+}
+
+big {
+    font-size: larger;
+}
+
+.icon {
+    width: 20px;
+    vertical-align: text-bottom;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+
+.targetindex ul {
+    margin: 0px 5px;
+    clear: both;
+}
+
+.notes {
+    font-style: italic;
+    font-size: smaller;
+    margin: 2px 5px;
+}
+
+.toberepared {
+    color: lightgray;
+}
+
+.tobedone {
+    color: lightgray;
+}
+
+.done {
+    color: gray;
+}
+
+.failed {
+    color: gray;
+}
+
+
+.headerPage {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    border: 2px solid;
+    margin: 0cm 0cm 0px 0cm;
+    font-family: "PT Serif Bold",Georgia,serif,times;
+    padding-bottom: 0px;
+}
+
+.header1 {
+    flex: 1 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.header11 {
+    flex: 1 auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+
+.header12 {
+    flex: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.logo {
+    flex: 0 auto;
+}
+
+
+.title1 {
+    flex: 1 auto;
+
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.filters {
+    flex: 0 auto;
+
+    padding: 5px;
+    font-size: x-small;
+    text-align: right;
+}
+
+.title1 h1 {
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.title2 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.title2 h1 {
+    padding: 0px 5px;
+
+    font-size: 18px;
+    font-weight: normal;
+}
+
+
+.boxItem {
+    margin: 0.2cm 0cm;
+
+    border: 1px dotted gray;
+    ccccmargin: 5px 0px 5px 0px;
+    padding: 3px 5px;
+    clear: both;
+    border-radius: 5px;
+
+    page-break-inside: avoid;
+}
+
+
+
+
+.paptest {
+    width: 45%;
+    height: 100px;
+    float: right;
+    z-index: 2;
+    border-left: 2px solid;
+}
+
+.paptest h1 {
+    padding-top: 20px;
+    font-size: 24px;
+}
+
+.header2 {
+    border: 2px solid;
+    border-top: 1px solid;
+    margin: 0px 1.5cm 0px 1.5cm;
+    font-size: 14px;
+}
+
+.patient {
+    float: right;
+    width: 40%;
+    z-index: 2;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.vcenter {
+}
+
+.vcenter img {
+    vertical-align: middle;
+}
+
+.example-print {
+    display: none;
+}
+
+
+
+@media print {
+    @page {
+        size: A4;
+        margin: 1cm;
+    }
+  
+    footer {
+        page-break-after: always;
+    }
+
+   .example-screen {
+       display: none;
+    }
+    .example-print {
+       display: block;
+    }
+}
+

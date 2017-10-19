@@ -1,0 +1,84 @@
+
+<script>
+    function validateForm() {
+
+        var msgs = [];
+
+        var cid = document.getElementById('companyId').value;
+        if (cid === "0") {
+            msgs.push('- Debe seleccionar una fábrica.');
+        }
+
+        var ttid = document.getElementById('targettypeId').value;
+        if (ttid === "0") {
+            msgs.push('- Debe seleccionar un tipo de objetivo.');
+        }
+
+        if (msgs.length) {
+            alert("Existen errores:\n" + msgs.join("\n"));
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+
+<ul>
+
+	<li>
+		<b>Fábrica</b>:
+		<select name="companyId" id="companyId" >
+
+		    <option value="0"  <%= target.CompanyId === 0 ? "selected" : "" %> > 
+    				Seleccione una fábrica
+    		</option>
+
+			<% for (var i in companies) { %>
+				<% var company = companies[i]; %>
+    			<option value="<%= company.id %>"  <%= company.id === target.CompanyId ? "selected" : "" %> > 
+    				<%= company.name %>  
+    			</option>
+    		<% } %>
+		</select>
+	</li>
+
+
+	<li>
+		<b>Tipo de Objetivo</b>:
+		<select name="targettypeId" id="targettypeId" >
+
+		    <option value="0"  <%= target.TargetTypeId === 0 ? "selected" : "" %> > 
+    				Seleccione un tipo
+    		</option>
+
+			<% for (var i in targettypes) { %>
+				<% var targettype = targettypes[i]; %>
+    			<option value="<%= targettype.id %>"  <%= targettype.id === target.TargetTypeId ? "selected" : "" %> > 
+    				<%= targettype.name %>  
+    			</option>
+    		<% } %>
+		</select>
+	</li>
+
+
+	<li>
+		<label><b>Estado</b>:</label>
+		<ul>
+			<li> Pendiente: <input type="radio" name="success"
+								   value="nulo" <%= target.success === null ? "checked" : "" %> ></li>
+			<li> Cumplido: <input type="radio" name="success"
+								  value="si" <%= target.success === true ? "checked" : "" %> ></li>
+			<li> Fallido: <input type="radio" name="success"
+								 value="no" <%= target.success === false ? "checked" : "" %> ></li>
+		</ul>
+	</li>
+
+
+	<li>
+		<label>Observaciones:</label>
+		<br />
+		<textarea type="text" name="notes" placeholder="Observaciones" rows="5" cols="80"><%= target.notes %></textarea>
+	</li>
+
+</ul>

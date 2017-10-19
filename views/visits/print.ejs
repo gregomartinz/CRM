@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="always" />
+    <title> CRM </title>
+    <link rel='stylesheet' href='/stylesheets/print.css' />
+
+    <script>
+        function printVisits() {
+
+            window.print();
+
+            return false;
+        }
+    </script>
+
+</head>
+
+<body class="page">
+
+<div class="example-screen">
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+    <a href="" onclick="printVisits();"><img class="icon" src="/icons/print.png"></a>
+</div>
+
+<header class="headerPage">
+
+    <div class="header1">
+        <div class="header11">
+
+            <div class="logo">
+                <img height="40px" src="<%= process.env.CRM_LOGO_URL || '/images/logo.png' %>"/>
+            </div>
+
+            <div class="title1">
+                <h1>
+                    <%= process.env.CRM_TITLE || "CRM" %>
+                </h1>
+            </div>
+        </div>
+
+
+        <div class="header12">
+            <div class="title2">
+
+                <h1>
+                    <% if (locals.customer) { %>
+                    <% if (locals.salesman) { %>
+                    Mis visitas a <em><%= locals.customer.name %></em>
+                    <% } else { %>
+                    Visitas a <em><%= locals.customer.name %></em>
+                    <% } %>
+                    <% } else { %>
+                    <% if (locals.salesman) { %>
+                    Mis visitas
+                    <% } else { %>
+                    Todas las visitas
+                    <% } %>
+                    <% } %>
+                </h1>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="filters">
+
+        <% if (locals.searchdateafter || locals.searchdatebefore) { %>
+        Planificado <b><%= locals.searchdateafter || '01-01-1900' %></b>
+        / <b><%= locals.searchdatebefore || '31-12-9999' %></b>
+        <br/>
+        <% } %>
+
+        <% if (!locals.customer) { %>
+
+        <% if (locals.searchcustomer) { %>
+        Cliente ~ <b><%= locals.searchcustomer || '' %></b>
+        <br/>
+        <% } %>
+
+        <% if (locals.searchCompanyId) { %>
+        <% for (var i in companiesInfo) { %>
+        <% var companyInfo = companiesInfo[i]; %>
+
+        <% if (companyInfo.id == locals.searchCompanyId) { %>
+        Fábrica: <b><%= companyInfo.name %></b>
+        <br/>
+        <% break; %>
+        <% } %>
+        <% } %>
+        <% } %>
+        <% } %>
+
+        <% if (!locals.salesman) { %>
+        <% if (locals.searchsalesman) { %>
+        Vendedor ~ <b><%= locals.searchsalesman || '' %></b>
+        <br/>
+        <% } %>
+        <% } %>
+
+        <% if (locals.searchfavourites) { %>
+        Favoritas: <b>Si</b>
+        <% } %>
+
+    </div>
+
+</header>
+
+<% for (var i in visits) { %>
+<% var visit = visits[i]; %>
+<% var customerCode = visit.Customer && visit.Customer.code || ""; %>
+<% var customerName = visit.Customer && visit.Customer.name || ""; %>
+<% var customerId = visit.Customer && visit.Customer.id || 0; %>
+<% var customerAddr = visit.Customer && (
+                (visit.Customer.address1 || "") + " - " +
+                (visit.Customer.address2 || "") + " " +
+                (visit.Customer.postalCode || "") + "-" +
+                (visit.Customer.city || "")
+        ) || ""; %>
+<% var customerArchived = visit.Customer && !!visit.Customer.archived; %>
+
+
+
+<% var salesmanName = visit.Salesman && visit.Salesman.fullname || ""; %>
+<% var salesmanPhotoUrl = visit.Salesman && visit.Salesman.Photo && visit.Salesman.Photo.url || ""; %>
+<% var salesmanId = visit.Salesman && visit.Salesman.id || 0; %>
+
+<div class="boxItem">
+
+    <div class="right">
+
+        <div class="vcenter">
+            <%= salesmanName || "SIN VENDEDOR" %>
+            <!-- %- include ../favourites/_stars.ejs % -->
+        </div>
+    </div>
+
+
+    <div>
+        <small>
+            <%= moment(visit.plannedFor).format("DD-MM-YYYY") %>
+            /
+            <% if (!!visit.fulfilledAt) { %>
+            <%= moment(visit.fulfilledAt).format("DD-MM-YYYY") %>
+            <% } else { %>
+            <span class='tobedone'><em>PENDIENTE</em></span>
+            <% } %>
+        </small>
+    </div>
+
+    <div class="vcenter">
+        <% if (customerArchived) { %>
+        <small>
+            <span class="archived">[Archivado]</span>
+        </small>
+        <br />
+        <% } %>
+
+        <% if (customerCode) { %>
+            <big><%= customerName %></big>
+            <small>(<%= customerCode %>)</small>
+            <small><%= customerAddr %></small>
+        <% } else { %>
+            <span class='toberepared'>SIN CLIENTE</span>
+        <% } %>
+    </div>
+
+
+    <div>
+        <% if (visit.notes) { %>
+        <div class="notes">
+            <%- escapeText(visit.notes) %>
+        </div>
+        <% } %>
+    </div>
+
+    <% var targets = visit.Targets %>
+    <% locals.readwrite = false; %>
+
+    <div class="targetindex">
+        <%- include ../targets/_index.ejs %>
+    </div>
+
+</div>
+
+<% } %>
+
+
+</body>
+</html>
+

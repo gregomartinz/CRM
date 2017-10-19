@@ -1,0 +1,123 @@
+
+<script src="/javascripts/misc_form.js"></script>
+
+<form method="get" action="<%= url %>" id="filterForm" class="right filters">
+
+    <div class="vcenter">
+        Filtros:
+        <input type="image" class="icon" src="/icons/find.png" border="0" alt="Submit" />
+
+        <input type="image" class="icon right" src="/icons/cancel.png" border="0"
+               onClick="cleanupForm('filterForm')" />
+
+    </div>
+
+    <label>Código/Nombre:</label>
+    <input type="text" name="searchCodeName" value="<%= locals.searchCodeName || '' %>"
+           placeholder="código o nombre a buscar"
+           size="30" autocomplete="off"/>
+
+    <br />
+
+    <label>Clientes de la fábrica:</label>
+    <select name="searchCompanyId">
+
+        <option value=""  <%= !locals.searchCompanyId ? "selected" : "" %> >
+            Todas
+        </option>
+
+        <% for (var i in companiesInfo) { %>
+            <% var companyInfo = companiesInfo[i]; %>
+            <option value="<%= companyInfo.id %>"  <%= companyInfo.id == locals.searchCompanyId ? "selected" : "" %> >
+                <%= companyInfo.name %>
+            </option>
+        <% } %>
+    </select>
+
+    <br />
+
+    <label>Incluir Archivados:</label>
+    <input type="checkbox" name="searchArchived" value="1" <%= locals.searchArchived ? 'checked' : '' %> >
+</form>
+
+<h1> 
+    Clientes:
+
+    <a href="/goback"><img class="icon" src="/icons/back.png"></a>
+
+    <% if (session.user && session.user.isAdmin) { %>
+        <a href="/customers/new"><img class="icon" src="/icons/add.png"></a>
+        <a href="/customers/import"><img class="icon" src="/icons/csv2.png"></a>
+    <% } %>
+
+</h1>
+
+<%  if (locals.paginate_control) { %>
+<%- paginate_control %>
+<% } %>
+
+<table>
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Dirección
+        </th>
+        <th colspan=2>
+            Visitas
+        </th>
+        <th>
+            
+        </th>
+    </tr> 
+
+    <% for (var i in customers) { %> 
+        <% var customer = customers[i]; %>      
+
+        <tr>
+            <td>
+                <a href="/customers/<%= customer.id %>"><%= customer.code %></a>
+            </td>
+            <td>
+                <a href="/customers/<%= customer.id %>"><%= customer.name %></a>
+
+                <% if (!!customer.archived) { %>
+                <br/>
+
+                <small>
+                    <span class="archived">[Archivado]</span>
+                </small>
+                <% } %>
+            </td>
+            <td>
+                <small>
+                    <%= customer.address1 %>
+                    <br/>
+                    <%= customer.address2 %>
+                    <%= customer.postalCode %>-<%= customer.city %>
+                </small>
+            </td>
+
+            <td>
+                <%= customer.Visits.length %>
+            </td>
+
+            <td>
+                <%= customer.Visits[0] &&  moment(customer.Visits[0].plannedFor).format("DD-MM-YYYY") %>
+            </td>
+
+            <td>
+                <% if (session.user && session.user.isAdmin) { %>
+                    <a href="/customers/<%= customer.id %>?_method=DELETE"
+                       onClick="return confirm('¿Seguro que quiere borrar el cliente: <%= customer.name %>?');"><img class="icon" src="/icons/basura.png"></a>
+                <% } %>
+            </td>
+         </tr> 
+    <% } %>
+
+</table>
+
